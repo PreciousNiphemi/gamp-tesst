@@ -1,4 +1,4 @@
-import { Box, Image, Input, Center, Text, Stack, Flex } from "@chakra-ui/react";
+import { Box, Image, Input, Center, Text, Stack } from "@chakra-ui/react";
 
 export const LoginForm: React.FC = () => {
   return (

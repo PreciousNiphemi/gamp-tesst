@@ -1,13 +1,4 @@
-import {
-  Center,
-  Image,
-  Flex,
-  Heading,
-  Text,
-  HStack,
-  Stack,
-  Box,
-} from "@chakra-ui/react";
+import { Image, Flex, Text, HStack, Stack, Box } from "@chakra-ui/react";
 import { LoginForm } from "../common";
 const AuthPage: React.FC = () => {
   return (
