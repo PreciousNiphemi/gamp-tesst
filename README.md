@@ -45,3 +45,13 @@ When we run `next dev` the next time, Next.js will start looking for any `.ts` o
 Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
 
 A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+
+## Structure
+
+[] The common folder contains common components like header, buttons e.t.c
+
+[] The constants folder house constants like routes, external routes etc
+
+[] The Public Folder house the image folder(image folder can house different folder, based on the image we're saving), favicon, sitemap.xml (when added)
+
+[] The Theme folder is for customize theme instead of chakra default team (feel free to take a look)

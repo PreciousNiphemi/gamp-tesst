@@ -1,15 +1,12 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { Center, Heading, Text } from "@chakra-ui/react";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const AuthPage: React.FC = () => {
+  return (
+    <Center>
+      {/* <Text textStyle="p-sm">Gamp Test</Text> */}
+      <Heading>Gamp Test</Heading>
+    </Center>
+  );
+};
 
-export default IndexPage
+export default AuthPage;
