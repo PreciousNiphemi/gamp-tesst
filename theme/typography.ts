@@ -14,6 +14,11 @@ export const typography = {
       lineHeight: ["15px", "19.1px"],
       fontWeight: 700,
     },
+    "p-m-xs": {
+      fontSize: "18px",
+      lineHeight: "14.3px",
+      fontWeight: 400,
+    },
     "p-xs": {
       fontSize: "13px",
       lineHeight: "14.3px",
