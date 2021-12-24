@@ -48,7 +48,7 @@ A `type-check` script is also added to `package.json`, which runs TypeScript's `
 
 ## Structure
 
-[] The common folder contains common components like header, buttons e.t.c
+[] The common folder contains common components like header, LoginForm, DetailBox e.t.c
 
 [] The constants folder house constants like routes, external routes etc
 
