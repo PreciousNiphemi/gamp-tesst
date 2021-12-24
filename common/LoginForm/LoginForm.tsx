@@ -16,7 +16,7 @@ export const LoginForm: React.FC = () => {
         <Center>
           <Image
             src="/images/logo 2.svg"
-            boxSize={{ base: 20, md: 28, lg: 24 }}
+            boxSize={{ base: 20, md: 28, lg: 24, xl: 20 }}
           />
         </Center>
         <Stack spacing={{ base: "3", md: "6", lg: "3" }}>

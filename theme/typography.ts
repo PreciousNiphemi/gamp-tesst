@@ -4,6 +4,11 @@ export const typography = {
       fontSize: ["16px", "18px"],
       lineHeight: ["21.82px", "24.55px"],
     },
+    a: {
+      fontSize: "16px",
+      lineHeight: "20px",
+      cursor: "pointer",
+    },
     "p-md": {
       fontSize: "16px",
       lineHeight: "20.29px",
