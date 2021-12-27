@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, Text, Flex, HStack, Image } from "@chakra-ui/react";
 import { DetailBox } from "./DetailBox";
+import { example } from "../../constants/test";
 
 export const ProtectionDetails: React.FC = () => {
   type Props = {
@@ -68,9 +69,12 @@ export const ProtectionDetails: React.FC = () => {
                   flexWrap={{ base: "wrap", md: "wrap", lg: "wrap" }}
                   justifyContent="center"
                 >
-                  <DetailBox />
-                  <DetailBox />
-                  <DetailBox />
+                  {example.data.slice(0, 3).map((datum, datumId) => {
+                    return <DetailBox datum={datum} key={datumId} />;
+                  })}
+
+                  {/* <DetailBox />
+                  <DetailBox /> */}
                 </Flex>
               </Stack>
             </Box>

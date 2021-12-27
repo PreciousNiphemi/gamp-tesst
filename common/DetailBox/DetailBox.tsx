@@ -1,5 +1,7 @@
 import { Box, Text, Stack, Button, Flex } from "@chakra-ui/react";
 
+import moment from "moment";
+
 const DetailsButton = () => {
   return (
     <Button
@@ -18,7 +20,10 @@ const DetailsButton = () => {
     </Button>
   );
 };
-const ItemStack = () => {
+const ItemStack = ({ details }) => {
+  const dateFormat = moment(details.createdAt).utc().format("DD-MM-YYYY");
+
+  console.log(dateFormat);
   return (
     <Flex
       direction="row"
@@ -50,7 +55,7 @@ const ItemStack = () => {
               textAlign="left"
             >
               {" "}
-              Hello
+              {dateFormat}
             </Text>
           </Stack>
           <Stack px={{ base: 0, md: "", lg: "4" }}>
@@ -70,7 +75,7 @@ const ItemStack = () => {
               textAlign="left"
             >
               {" "}
-              Hello
+              {`N${details.price}`}
             </Text>
           </Stack>
         </Stack>
@@ -99,7 +104,7 @@ const ItemStack = () => {
               textAlign="left"
             >
               {" "}
-              Hello
+              {details.numOfPhones}
             </Text>
           </Stack>
           <Stack
@@ -123,7 +128,7 @@ const ItemStack = () => {
               textAlign="left"
             >
               {" "}
-              Hello
+              {details.numOfLaptops}
             </Text>
           </Stack>
         </Stack>
@@ -132,8 +137,7 @@ const ItemStack = () => {
   );
 };
 
-export const DetailBox: React.FC = () => {
-  console.log();
+export const DetailBox: React.FC<Props> = ({ datum }) => {
   return (
     <Box
       p="4"
@@ -150,7 +154,7 @@ export const DetailBox: React.FC = () => {
         width="100%"
         mt={{ base: "4", md: 0 }}
       >
-        <ItemStack />
+        <ItemStack details={datum} />
         <Box alignSelf="center">
           <DetailsButton />
         </Box>
