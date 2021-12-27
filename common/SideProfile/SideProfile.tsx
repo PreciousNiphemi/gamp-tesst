@@ -16,7 +16,7 @@ export const SideProfile: React.FC = () => {
       minW="275px"
       borderRadius="8px"
       backgroundColor="#fff"
-      display={{ base: "none", md: "none", lg: "block" }}
+      display={{ base: "none", md: "block", lg: "block" }}
     >
       <Stack>
         <Box
@@ -101,9 +101,9 @@ export const SideProfile: React.FC = () => {
             Claims
           </Text>
         </HStack>
-
+      </Stack>
+      <Box display="flex" flexDir="column" mt={{ md: 40, lg: 10 }}>
         <Button
-          //   mt="10"
           alignSelf="center"
           px="12"
           backgroundColor="Green.500"
@@ -116,7 +116,7 @@ export const SideProfile: React.FC = () => {
             Logout
           </Text>
         </Button>
-      </Stack>
+      </Box>
     </Box>
   );
 };
