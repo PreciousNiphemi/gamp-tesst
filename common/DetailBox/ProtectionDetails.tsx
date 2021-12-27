@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
+
 import { Box, Stack, Text, Flex, HStack, Image } from "@chakra-ui/react";
 import { DetailBox } from "./DetailBox";
-import { example } from "../../constants/test";
+import { response } from "../../constants/test";
 
 export const ProtectionDetails: React.FC = () => {
+  const { isLoading, isFetching, error, data, status } = useQuery("plans", () =>
+    fetch(
+      "https://gamp-server-staging.herokuapp.com/v1%20/plan/spplan/fetch"
+    ).then((res) => res.json())
+  );
+
   type Props = {
     ScreenProtection: boolean;
     ServiceContract: boolean;
@@ -12,7 +20,7 @@ export const ProtectionDetails: React.FC = () => {
     ScreenProtection: false,
     ServiceContract: false,
   };
-
+  const typeResponse: typeof response = response;
   const [slide, setSlide] = useState(INITIAL_SLIDE_VALUES);
   return (
     <>
@@ -69,7 +77,7 @@ export const ProtectionDetails: React.FC = () => {
                   flexWrap={{ base: "wrap", md: "wrap", lg: "wrap" }}
                   justifyContent="center"
                 >
-                  {example.data.slice(0, 3).map((datum, datumId) => {
+                  {typeResponse.data.slice(0, 3).map((datum, datumId) => {
                     return <DetailBox datum={datum} key={datumId} />;
                   })}
 

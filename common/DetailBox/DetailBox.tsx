@@ -1,5 +1,5 @@
 import { Box, Text, Stack, Button, Flex } from "@chakra-ui/react";
-
+import { response } from "../../constants/test";
 import moment from "moment";
 
 const DetailsButton = () => {
@@ -22,8 +22,6 @@ const DetailsButton = () => {
 };
 const ItemStack = ({ details }) => {
   const dateFormat = moment(details.createdAt).utc().format("DD-MM-YYYY");
-
-  console.log(dateFormat);
   return (
     <Flex
       direction="row"
@@ -137,7 +135,7 @@ const ItemStack = ({ details }) => {
   );
 };
 
-export const DetailBox: React.FC<Props> = ({ datum }) => {
+export const DetailBox = ({ datum }) => {
   return (
     <Box
       p="4"

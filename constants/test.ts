@@ -1,4 +1,4 @@
-export const example = {
+export const response = {
   success: true,
   message: "Plan(s) Fetched Successfully",
   data: [
@@ -226,4 +226,4 @@ export const example = {
     },
   ],
   statusCode: 200,
-};
+} as const;
