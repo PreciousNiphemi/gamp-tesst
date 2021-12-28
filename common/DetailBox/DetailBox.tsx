@@ -1,5 +1,4 @@
 import { Box, Text, Stack, Button, Flex } from "@chakra-ui/react";
-import { response } from "../../constants/test";
 import moment from "moment";
 
 const DetailsButton = () => {

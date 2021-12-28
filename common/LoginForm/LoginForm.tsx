@@ -1,6 +1,43 @@
-import { Box, Image, Input, Center, Text, Stack } from "@chakra-ui/react";
+import React from "react";
+import {
+  Box,
+  Image,
+  Input,
+  Center,
+  Flex,
+  Text,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
+import { Field, Formik, Form, FieldProps } from "formik";
+import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import {
+  Fields,
+  INITIAL_SIGN_IN_VALUES,
+} from "../../constants/signInConstants";
+import { ROUTES } from "../../constants/routes";
+import { login } from "./helper";
+
+import { signInValidation } from "../../features/signInValidationSchema/validationSchema";
 
 export const LoginForm: React.FC = () => {
+  const queryClient = useQueryClient();
+  const validationSchema = signInValidation();
+  const toast = useToast();
+  const router = useRouter();
+  const { mutate, isLoading } = useMutation(login, {
+    onSuccess: () => {
+      router.push(ROUTES.protectionPlans);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("login");
+    },
+  });
+
   return (
     <Box
       minW={{ base: "", md: "500px", lg: "541px" }}
@@ -19,48 +56,85 @@ export const LoginForm: React.FC = () => {
             boxSize={{ base: 20, md: 28, lg: 24, xl: 20 }}
           />
         </Center>
-        <Stack spacing={{ base: "3", md: "6", lg: "3" }}>
-          <Input
-            size="lg"
-            borderColor="#858585"
-            focusBorderColor="Green.500"
-            placeholder="Email Address or Phone Number"
-            _placeholder={{
-              fontSize: "13px",
-              lineHeight: "17.73px",
-              fontWeight: 400,
-            }}
-          />
-          <Input
-            size="lg"
-            borderColor="#858585"
-            focusBorderColor="Green.500"
-            placeholder="Password"
-            _placeholder={{
-              fontSize: "13px",
-              lineHeight: "17.73px",
-              fontWeight: 400,
-            }}
-          />
-        </Stack>
-
-        <Box
-          as="button"
-          bgColor="green.500"
-          py="3"
-          borderRadius="8px"
-          alignSelf="center"
-          minWidth={{ base: "200px", md: "480px", lg: "480px" }}
+        <Formik
+          initialValues={INITIAL_SIGN_IN_VALUES}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            mutate(values);
+          }}
         >
-          <Text
-            color="#fff"
-            fontWeight="400"
-            fontSize={{ base: "15px", md: "18px", lg: "15px" }}
-            lineHeight="19.02px"
-          >
-            Log In
-          </Text>
-        </Box>
+          {(formikBag) => {
+            return (
+              <>
+                <Form>
+                  <Stack spacing={{ base: "3", md: "6", lg: "3" }}>
+                    <Field name={Fields.EMAIL}>
+                      {({ field, form }: FieldProps<string>) => {
+                        return (
+                          <>
+                            <Input
+                              {...field}
+                              size="lg"
+                              borderColor="#858585"
+                              focusBorderColor="Green.500"
+                              placeholder="Email Address or Phone Number"
+                              _placeholder={{
+                                fontSize: "13px",
+                                lineHeight: "17.73px",
+                                fontWeight: 400,
+                              }}
+                            />
+                          </>
+                        );
+                      }}
+                    </Field>
+                    <Field name={Fields.PASSWORD}>
+                      {({ field, form }: FieldProps<string>) => {
+                        return (
+                          <Input
+                            {...field}
+                            size="lg"
+                            borderColor="#858585"
+                            focusBorderColor="Green.500"
+                            placeholder="Password"
+                            _placeholder={{
+                              fontSize: "13px",
+                              lineHeight: "17.73px",
+                              fontWeight: 400,
+                            }}
+                          />
+                        );
+                      }}
+                    </Field>
+                  </Stack>
+                  <Flex justifyContent="center">
+                    <Box
+                      mt={6}
+                      as="button"
+                      bgColor="green.500"
+                      py="3"
+                      borderRadius="8px"
+                      alignSelf="center"
+                      onClick={() => {
+                        formikBag.submitForm();
+                      }}
+                      minWidth={{ base: "200px", md: "480px", lg: "480px" }}
+                    >
+                      <Text
+                        color="#fff"
+                        fontWeight="400"
+                        fontSize={{ base: "15px", md: "18px", lg: "15px" }}
+                        lineHeight="19.02px"
+                      >
+                        Log In
+                      </Text>
+                    </Box>
+                  </Flex>
+                </Form>
+              </>
+            );
+          }}
+        </Formik>
 
         <Text
           textStyle={{ base: "p-xs", md: "p-m-xs", lg: "p-xs" }}

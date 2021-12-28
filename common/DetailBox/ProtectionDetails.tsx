@@ -1,27 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useQuery } from "react-query";
-
 import { Box, Stack, Text, Flex, HStack, Image } from "@chakra-ui/react";
 import { DetailBox } from "./DetailBox";
-import { response } from "../../constants/test";
 
 export const ProtectionDetails: React.FC = () => {
-  const { isLoading, isFetching, error, data, status } = useQuery("plans", () =>
-    fetch(
-      "https://gamp-server-staging.herokuapp.com/v1%20/plan/spplan/fetch"
-    ).then((res) => res.json())
-  );
 
-  type Props = {
-    ScreenProtection: boolean;
-    ServiceContract: boolean;
+  const getPlans = async () => {
+    const tokenValue = localStorage.getItem("token");
+  const response = await axios({
+      method: "get",
+      //on another day this api url will be in .env file
+      url: "https://gamp-server-staging.herokuapp.com/v1/plan/spplan/fetch",
+      headers: {
+       accesstoken:tokenValue,
+      },
+    })
+    return response
+   
   };
-  const INITIAL_SLIDE_VALUES: Props = {
-    ScreenProtection: false,
+
+  const { isLoading, isSuccess, data, status } = useQuery("plans", getPlans);
+
+  const [slide, setSlide] = useState({
+    ScreenProtection: true,
     ServiceContract: false,
-  };
-  const typeResponse: typeof response = response;
-  const [slide, setSlide] = useState(INITIAL_SLIDE_VALUES);
+  });
   return (
     <>
       <Stack>
@@ -61,7 +65,7 @@ export const ProtectionDetails: React.FC = () => {
                     <Box
                       pb="4"
                       cursor="pointer"
-                      borderBottomWidth={slide.ScreenProtection ? 0 : "2px"}
+                      borderBottomWidth={slide.ScreenProtection ? "2px" : 0}
                       borderBottomColor="Green.500"
                     >
                       <Text textStyle="p-sm" color="Green.500">
@@ -77,12 +81,18 @@ export const ProtectionDetails: React.FC = () => {
                   flexWrap={{ base: "wrap", md: "wrap", lg: "wrap" }}
                   justifyContent="center"
                 >
-                  {typeResponse.data.slice(0, 3).map((datum, datumId) => {
-                    return <DetailBox datum={datum} key={datumId} />;
-                  })}
-
-                  {/* <DetailBox />
-                  <DetailBox /> */}
+                  {
+                    isLoading && (
+                      <Text>Loading...</Text>
+                    )
+                  }
+                  {
+                    isSuccess && (
+                      data.data.data.slice(0, 3).map((datum, datumId) => {
+                        return <DetailBox datum={datum} key={datumId} />;
+                      })
+                    )
+                  }
                 </Flex>
               </Stack>
             </Box>

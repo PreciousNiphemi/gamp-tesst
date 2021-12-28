@@ -11,9 +11,21 @@ import {
   DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { ROUTES } from "../../constants/routes";
+
 import { NavText } from "./NavText";
+const activeLinkStyles = {
+  // md: {
+  borderColor: "Green.500",
+  borderWidth: "0.5px",
+  borderRadius: "8px",
+  py: "3",
+  // },
+};
 
 const MenuItems = () => {
+  const router = useRouter();
   return (
     <Flex
       flexDir={{ base: "column", md: "column", lg: "row" }}
@@ -28,7 +40,11 @@ const MenuItems = () => {
     >
       <NavText>Repair</NavText>
       <NavText>Business</NavText>
-      <NavText>Protect Device</NavText>
+      <NavText
+        {...(router.pathname === ROUTES.protectionPlans && activeLinkStyles)}
+      >
+        Protect Device
+      </NavText>
       <HStack pr={{ base: 0, md: 0, lg: 20 }}>
         <Image src="/images/profile.svg" />
         <NavText profile={true}>Hi, Omotayo</NavText>

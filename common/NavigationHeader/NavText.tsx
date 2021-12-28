@@ -18,11 +18,14 @@ export const NavText = ({
     as="a"
     d="flex"
     mr={[0, 3]}
-    px={profile ? [0, 0] : [0, 3]}
+    px={profile ? [0, 0] : [3, 3]}
     my={[2, 0]}
     textStyle="a"
     onClick={onClick}
     alignItems="center"
+    _active={{
+      color: "red",
+    }}
     _hover={{ color: "Green.500" }}
     transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
     {...others}
