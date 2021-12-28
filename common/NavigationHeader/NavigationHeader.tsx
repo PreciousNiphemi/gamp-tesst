@@ -16,12 +16,10 @@ import { ROUTES } from "../../constants/routes";
 
 import { NavText } from "./NavText";
 const activeLinkStyles = {
-  // md: {
   borderColor: "Green.500",
   borderWidth: "0.5px",
   borderRadius: "8px",
   py: "3",
-  // },
 };
 
 const MenuItems = () => {

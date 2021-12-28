@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Image,
-  Input,
-  Center,
-  Flex,
-  Text,
-  Stack,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Image, Input, Center, Flex, Text, Stack } from "@chakra-ui/react";
 import { Field, Formik, Form, FieldProps } from "formik";
 import { useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
@@ -24,7 +15,6 @@ import { signInValidation } from "../../features/signInValidationSchema/validati
 export const LoginForm: React.FC = () => {
   const queryClient = useQueryClient();
   const validationSchema = signInValidation();
-  const toast = useToast();
   const router = useRouter();
   const { mutate } = useMutation(login, {
     onSuccess: () => {
@@ -69,7 +59,7 @@ export const LoginForm: React.FC = () => {
                 <Form>
                   <Stack spacing={{ base: "3", md: "6", lg: "3" }}>
                     <Field name={Fields.EMAIL}>
-                      {({ field, form }: FieldProps<string>) => {
+                      {({ field }: FieldProps<string>) => {
                         return (
                           <>
                             <Input
@@ -89,7 +79,7 @@ export const LoginForm: React.FC = () => {
                       }}
                     </Field>
                     <Field name={Fields.PASSWORD}>
-                      {({ field, form }: FieldProps<string>) => {
+                      {({ field }: FieldProps<string>) => {
                         return (
                           <Input
                             {...field}
