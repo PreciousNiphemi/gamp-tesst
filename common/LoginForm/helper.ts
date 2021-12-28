@@ -5,7 +5,7 @@ export const login = async (values) => {
     //on another day this api url will be in .env file
     url: "https://gamp-server-staging.herokuapp.com/v1/auth/login",
     data: {
-      email: values.email,
+      email: values.email ,
       password: values.password,
     },
   })

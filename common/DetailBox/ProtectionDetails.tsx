@@ -5,22 +5,22 @@ import { Box, Stack, Text, Flex, HStack, Image } from "@chakra-ui/react";
 import { DetailBox } from "./DetailBox";
 
 export const ProtectionDetails: React.FC = () => {
-
   const getPlans = async () => {
     const tokenValue = localStorage.getItem("token");
-  const response = await axios({
+    const response = await axios({
       method: "get",
       //on another day this api url will be in .env file
       url: "https://gamp-server-staging.herokuapp.com/v1/plan/spplan/fetch",
       headers: {
-       accesstoken:tokenValue,
+        accesstoken: tokenValue,
       },
-    })
-    return response
-   
+    });
+    return response;
   };
 
-  const { isLoading, isSuccess, data, status } = useQuery("plans", getPlans);
+  const { isLoading, isSuccess, data } = useQuery("plans", getPlans);
+
+  const itemDisplay = isSuccess ? data.data.data.slice(0, 3).length : 0;
 
   const [slide, setSlide] = useState({
     ScreenProtection: true,
@@ -69,7 +69,7 @@ export const ProtectionDetails: React.FC = () => {
                       borderBottomColor="Green.500"
                     >
                       <Text textStyle="p-sm" color="Green.500">
-                        SCREEN PROTECTION (3)
+                        {`SCREEN PROTECTION(${itemDisplay})  `}
                       </Text>
                     </Box>
                     <Box pb="4" cursor="pointer">
@@ -81,18 +81,11 @@ export const ProtectionDetails: React.FC = () => {
                   flexWrap={{ base: "wrap", md: "wrap", lg: "wrap" }}
                   justifyContent="center"
                 >
-                  {
-                    isLoading && (
-                      <Text>Loading...</Text>
-                    )
-                  }
-                  {
-                    isSuccess && (
-                      data.data.data.slice(0, 3).map((datum, datumId) => {
-                        return <DetailBox datum={datum} key={datumId} />;
-                      })
-                    )
-                  }
+                  {isLoading && <Text>Loading...</Text>}
+                  {isSuccess &&
+                    data.data.data.slice(0, 3).map((datum, datumId) => {
+                      return <DetailBox datum={datum} key={datumId} />;
+                    })}
                 </Flex>
               </Stack>
             </Box>

@@ -26,7 +26,7 @@ export const LoginForm: React.FC = () => {
   const validationSchema = signInValidation();
   const toast = useToast();
   const router = useRouter();
-  const { mutate, isLoading } = useMutation(login, {
+  const { mutate } = useMutation(login, {
     onSuccess: () => {
       router.push(ROUTES.protectionPlans);
     },
