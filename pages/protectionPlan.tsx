@@ -8,7 +8,7 @@ const ProtectionPlan: React.FC = () => {
       <Flex
         px={{ base: "4", md: "10", lg: "20" }}
         justifyContent="center"
-        mt={10}
+        mt={5}
       >
         <Flex justifyContent="center">
           <Stack direction="row" spacing={{ md: "10" }}>
