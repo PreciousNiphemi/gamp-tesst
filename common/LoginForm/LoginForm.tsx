@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Image, Input, Center, Flex, Text, Stack } from "@chakra-ui/react";
 import { Field, Formik, Form, FieldProps } from "formik";
 import { useMutation, useQueryClient } from "react-query";
@@ -13,15 +13,17 @@ import { login } from "./helper";
 import { signInValidation } from "../../features/signInValidationSchema/validationSchema";
 
 export const LoginForm: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const queryClient = useQueryClient();
   const validationSchema = signInValidation();
   const router = useRouter();
-  const { mutate } = useMutation(login, {
+  const { mutate, data } = useMutation(login, {
     onSuccess: () => {
+      errorMessage.length > 2 ? setErrorMessage("") : null;
       router.push(ROUTES.protectionPlans);
     },
-    onError: (err) => {
-      console.log(err);
+    onError: () => {
+      setErrorMessage("Email or password is incorrect. Please try again");
     },
     onSettled: () => {
       queryClient.invalidateQueries("login");
@@ -103,6 +105,7 @@ export const LoginForm: React.FC = () => {
                       as="button"
                       bgColor="green.500"
                       py="3"
+                      type="submit"
                       borderRadius="8px"
                       alignSelf="center"
                       onClick={() => {
@@ -121,6 +124,15 @@ export const LoginForm: React.FC = () => {
                     </Box>
                   </Flex>
                 </Form>
+                <Text
+                  textStyle="p-xs"
+                  textAlign="center"
+                  color="red"
+                  mt={1}
+                  mb={3}
+                >
+                  {errorMessage}
+                </Text>
               </>
             );
           }}
